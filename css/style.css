@@ -29,7 +29,8 @@ body {
 .calc-buttons {
     display: flex;
     flex-wrap: wrap;
-    gap: 8px;
+    justify-content: center;
+    align-items: center;
     height: 70%;
     width: 100%;
     padding: 24px;
@@ -38,10 +39,9 @@ body {
 }
 
 .calc-button {
-    flex: 1 1 auto;
-    height: 20%;
+    flex: none;
+    height: 15%;
     width: 20%;
-    border: 2px solid grey;
-    border-radius: 50%;
-
+    padding: 0;
+    margin: 0;
 }
