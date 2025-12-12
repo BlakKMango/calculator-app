@@ -18,3 +18,13 @@ We need the following:
 It should maintain it's size until it can no longer fit on the screen. 
 If it shrinks, it should shrink uniformly. I do not want the buttons and display to move.
 
+
+# How the calculator works
+1. When the user presses a number it appears on the screen.
+2. When the user presses an operator:
+    - The screen clears for another number to be added
+    - The choice of operator triggers the correct calculation
+    - The operator is shown on screen
+3. The user enters another number
+    - Repeat as above
+4. When the equals sign is pressed, the result is shown on the screen
