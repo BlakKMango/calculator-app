@@ -8,8 +8,19 @@ const equals = calculator.querySelector("#equals")
 
 let currentNum = [0]
 
+function showNumber() {
+    const currentNumAsString = currentNum.join("")
+    calcScreen.textContent = currentNumAsString
+}
+
+function removeLastNumber(){
+
+}
+
 function enterNumber(e) {
-    console.log(e.target.textContent)
+    const num = e.target.textContent
+    currentNum.push(num)
+    showNumber()
 }
 
 calcNumbers.forEach(number => 
