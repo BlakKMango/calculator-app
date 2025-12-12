@@ -5,9 +5,10 @@ const calcNumbers = calculator.querySelectorAll(".button-num")
 const calcOperators = calculator.querySelectorAll(".button-operator")
 const calcFunctions = calculator.querySelectorAll(".button-func")
 const equalsButton = calculator.querySelector("#equals")
-const clearEntryButton = calculator.querySelector("#ce") 
+const clearEntryButton = calculator.querySelector("#ce")
+const clearButton = calculator.querySelector("#clear")
 
-let currentNum = [0]
+let currentNum = []
 
 function showCurrentNumber() {
     const currentNumAsString = currentNum.join("")
@@ -21,16 +22,23 @@ function inputNumber(e) {
     return currentNum
 }
 
-function removeLastNumber() {
+function clearLastNumber() {
     let newNum = currentNum.pop()
     showCurrentNumber()
 }
 
-calcNumbers.forEach(number => 
-    number.addEventListener("click", inputNumber)   
-)
+function clearCurrentNum() {
+    currentNum = []
+    showCurrentNumber()
+    return currentNum
+}
 
-clearEntryButton.addEventListener("click", removeLastNumber)
+calcNumbers.forEach(number => number.addEventListener("click", inputNumber))
+
+clearEntryButton.addEventListener("click", clearLastNumber)
+
+clearButton.addEventListener("click", clearCurrentNum)
+
 
 
 
