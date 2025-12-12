@@ -4,27 +4,33 @@ const calcButtons = calculator.querySelectorAll(".calc-button")
 const calcNumbers = calculator.querySelectorAll(".button-num")
 const calcOperators = calculator.querySelectorAll(".button-operator")
 const calcFunctions = calculator.querySelectorAll(".button-func")
-const equals = calculator.querySelector("#equals")
+const equalsButton = calculator.querySelector("#equals")
+const clearEntryButton = calculator.querySelector("#ce") 
 
 let currentNum = [0]
 
-function showNumber() {
+function showCurrentNumber() {
     const currentNumAsString = currentNum.join("")
     calcScreen.textContent = currentNumAsString
 }
 
-function removeLastNumber(){
-
-}
-
-function enterNumber(e) {
+function inputNumber(e) {
     const num = e.target.textContent
     currentNum.push(num)
-    showNumber()
+    showCurrentNumber()
+    return currentNum
+}
+
+function removeLastNumber() {
+    let newNum = currentNum.pop()
+    showCurrentNumber()
 }
 
 calcNumbers.forEach(number => 
-    number.addEventListener("click", enterNumber)   
+    number.addEventListener("click", inputNumber)   
 )
+
+clearEntryButton.addEventListener("click", removeLastNumber)
+
 
 
