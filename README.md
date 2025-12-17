@@ -24,7 +24,10 @@ If it shrinks, it should shrink uniformly. I do not want the buttons and display
 2. When the user presses an operator:
     - The screen clears for another number to be added
     - The choice of operator triggers the correct calculation
-    - The operator is shown on screen
 3. The user enters another number
     - Repeat as above
 4. When the equals sign is pressed, the result is shown on the screen
+
+
+### Next -> 
+    1. Build sums
