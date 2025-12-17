@@ -8,76 +8,70 @@ const equalsButton = calculator.querySelector("#equals")
 const clearEntryButton = calculator.querySelector("#ce")
 const clearButton = calculator.querySelector("#clear")
 
-let currentNum = []
-let allNumbers = []
-let result = 0
-let total = 0
+let userInput = []
+let previousNums = []
+let numB = ""
 
-function showNumber(num) {
-    let stringNum = currentNum.join("")
-    calcScreen.textContent = stringNum
-    return stringNum
+function showCurrentNumber() {
+    let inputToString = userInput.join("")
+    calcScreen.textContent = inputToString
+    return inputToString
 }
 
-function inputValue(e) {
-    const value = e.target.textContent
-    currentNum.push(value)
-    showNumber(currentNum)
-    return currentNum
+function inputNumber(e) {
+    const num = e.target.textContent
+    userInput.push(num)
+    return userInput
 }
 
 function clearLastNumber() {
-    let newNum = currentNum.pop()
+    let newNum = userInput.pop()
     showCurrentNumber()
 }
 
-function clearFullNum() {
+function clearCurrentNum() {
     calcScreen.textContent = ""
-    currentNum = []
-    return currentNum
+    userInput = []
+    return userInput
 }
 
-function saveNum() {
-    const num = currentNum.join("")
-    allNumbers.push(Number(num))
-    clearFullNum()
-    console.log(allNumbers)
-    return allNumbers
+function saveNumA() {
+    previousNums.push(userInput.join(""))
+    // clearCurrentNum()
+    console.log(previousNums)
+    return previousNums
 }
 
-function operate(e) {
-    if (result === 0) {
-        result = currentNum
-    } else {
-        switch (e.target.textContent) {
-            case "+":
-                result += currentNum
-                break;
-            case "=":
-                result += currentNum
-                showNumber(result)
-                break;
-        }
-        console.log(result)
-    }
+function saveNumB() {
+    numB = userInput.join("")
+    clearCurrentNum()
+    console.log(numB)
+    return numB
 }
 
+// function buildEquation(e) {
+//     //When an operator is clicked I want to build a calcultation
+//     //The calculation should be able to do previous number --operator-- currentNumber
+//     //For that I will need to store the previous number when it is cleared
+//     switch (e.target.textContent) {
+//         case "+": 
 
+//     }
+// }
 
-calcNumbers.forEach(number => number.addEventListener("click", inputValue))
+calcNumbers.forEach(number => number.addEventListener("click", (e) => {
+    inputNumber(e);
+    showCurrentNumber();
+    }))
 
 clearEntryButton.addEventListener("click", clearLastNumber)
 
-clearButton.addEventListener("click", clearFullNum)
+clearButton.addEventListener("click", clearCurrentNum)
 
-calcOperators.forEach(number => number.addEventListener("click", () => {
-    inputValue
-    // saveNum();
-    operate();
-}))
+calcOperators.forEach(number => number.addEventListener("click", saveNumA))
 
 equalsButton.addEventListener("click", () => {
-    saveNum();
+    saveNumB();
     // operate();
     }
 )
