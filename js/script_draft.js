@@ -1,34 +1,92 @@
-const calculator = document.querySelector(".calc")
-const calcScreen = calculator.querySelector(".calc-screen-inner")
-const calcButtons = calculator.querySelectorAll(".calc-button")
-const calcNumbers = calculator.querySelectorAll(".button-num")
-const calcOperators = calculator.querySelectorAll(".button-operator")
-const calcFunctions = calculator.querySelectorAll(".button-func")
-const equalsButton = calculator.querySelector("#equals")
-const clearEntryButton = calculator.querySelector("#ce")
-const clearButton = calculator.querySelector("#clear")
+const calcScreen = document.querySelector(".calc-screen-inner")
+const numButtons = document.querySelectorAll(".button-num")
+const operators = document.querySelectorAll(".button-operator")
+const equalsButton = document.querySelector("#equals")
 
-let currentValue = []
-let allNumbers = []
-let result = 0
+let currentNum = []
+let display = []
+let history = []
+let operator;
+let total = 0
 
-function inputValue(e) {
-    const value = e.target.textContent
-    currentValue.push(value)
-    showValue(currentValue)
-    return currentValue
+function enterNumber(e) {
+    const num = e.target.textContent
+    currentNum.push(num)
 }
 
-function showValue(num) {
-    let numString = num.join("")
-    calcScreen.textContent = numString
-    return numString
+function showOnScreen(e, total = null) {
+    if (total != null) {
+        display = [total];
+        calcScreen.textContent = total;
+        currentNum = [];
+        history = [];
+        operator = undefined;
+        return;
+    } else {
+        let value = e.target.textContent
+        display.push(value)
+        calcScreen.textContent = display.join("")
+        if (e.target.classList.contains("button-operator")) {
+            operator = value
+            console.log(operator)
+        }
+        console.log(display)
+        return display
+    }
+    
 }
 
-function saveNum() {
-    const num = currentVal
+function saveNumber() {
+    history.push(Number(currentNum.join("")))
+    currentNum = []
+    console.log(history)
 }
 
-calcNumbers.forEach(number => number.addEventListener("click", inputValue))
-calcOperators.forEach(number => number.addEventListener("click", inputValue))
-calcNumbers.forEach(number => number.addEventListener("click", inputValue))
+function calculate() {
+    if (total === 0) {
+        total = history[0]
+    } else {
+        switch (operator) {
+            case "+":
+                total += history[history.length - 1];
+                break;
+            case "-":
+                total -= history[history.length - 1];
+                break;
+            case "x":
+                total *= history[history.length - 1];
+                break;
+            case "&#247":
+                total /= history[history.length - 1];
+                break;
+        }
+    }
+    console.log(total)
+    return total
+}
+
+function clear() {
+    display = [];
+}
+
+numButtons.forEach(button => button.addEventListener("click", (e) => {
+    enterNumber(e);
+    showOnScreen(e)
+}))
+
+operators.forEach(operator => operator.addEventListener("click", (e) => {
+    showOnScreen(e);
+    saveNumber();
+    calculate();
+}))
+
+equalsButton.addEventListener("click", (e) => {
+    saveNumber();
+    let total = calculate(e);
+    display = [];
+    currentNum = [total];
+    showOnScreen(e, total)
+})
+
+
+
